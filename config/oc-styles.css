@@ -1,0 +1,12 @@
+.oc-decorated[data-effect="diamond"] .oc-effect{}
+.oc-decorated[data-effect="rainbow"] .oc-effect{}
+.oc-decorated[data-effect="lattice"] .oc-effect{}
+.oc-decorated[data-frame="diamond"] .oc-frame{border: 2px solid #d9f5ff; box-shadow: inset 0 0 7px #d9f5ff, inset 0 0 2px #fff;}
+.oc-decorated[data-frame="diamond"] .oc-stars{color: #d9f5ff; text-shadow: 0 0 3px #d9f5ff;}
+.oc-decorated[data-frame="diamond"] .oc-rank-letter{color: #d9f5ff; text-shadow: 0 1px 2px #000, 0 0 4px #d9f5ff;}
+.oc-decorated[data-frame="gold"] .oc-frame{border: 2px solid #ffd56a; box-shadow: inset 0 0 7px #ffd56a, inset 0 0 2px #fff;}
+.oc-decorated[data-frame="gold"] .oc-stars{color: #ffd56a; text-shadow: 0 0 3px #ffd56a;}
+.oc-decorated[data-frame="gold"] .oc-rank-letter{color: #ffd56a; text-shadow: 0 1px 2px #000, 0 0 4px #ffd56a;}
+.oc-decorated[data-frame="bronze"] .oc-frame{border: 2px solid #cd8d60; box-shadow: inset 0 0 7px #cd8d60, inset 0 0 2px #fff;}
+.oc-decorated[data-frame="bronze"] .oc-stars{color: #cd8d60; text-shadow: 0 0 3px #cd8d60;}
+.oc-decorated[data-frame="bronze"] .oc-rank-letter{color: #cd8d60; text-shadow: 0 1px 2px #000, 0 0 4px #cd8d60;}

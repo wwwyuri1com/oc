@@ -9,7 +9,7 @@
   function stop(card) {
     const video = card.querySelector('.y1-animated-video');
     if (video) { video.pause(); video.removeAttribute('src'); video.remove(); }
-    card.querySelector('img')?.classList.remove('y1-animation-hidden');
+    card.querySelector('.oc-art-media, img')?.classList.remove('y1-animation-hidden');
     card.classList.remove('is-loading', 'is-playing');
     const button = card.querySelector('.y1-animation-toggle');
     if (button) { button.innerHTML = playIcon; button.setAttribute('aria-label', '播放動態圖片'); button.setAttribute('aria-pressed', 'false'); }
@@ -17,7 +17,7 @@
   }
   function start(card) {
     if (active) stop(active);
-    const image = card.querySelector('img'), button = card.querySelector('.y1-animation-toggle');
+    const image = card.querySelector('.oc-art-media, img'), button = card.querySelector('.y1-animation-toggle');
     if (!image || !button) return;
     const video = document.createElement('video');
     video.className = 'y1-animated-video';

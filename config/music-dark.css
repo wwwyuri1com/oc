@@ -1,1 +1,21 @@
-#get-music-player{background:#1b1c20;color:#e1dce0;border-color:#454047;box-shadow:0 9px 35px #0008}#get-music-player .get-music-control,#get-music-player .get-music-close,#get-music-player .get-music-back{color:#d8c4d3;background:transparent;border-color:#49414a}#get-music-player .get-music-lyrics-text{color:#e1dce0}#get-music-player .get-music-lyrics-head{border-color:#454047}#get-music-player .get-music-control.is-active{color:#f2c7e4}
+/* OC Version B · scoped presentation of the existing, unmodified Get player. */
+#get-music-player[data-inline="true"],#get-music-player[data-inline="true"].is-lyrics-open{
+ position:relative!important;inset:auto!important;transform:none!important;
+ display:block;width:100%!important;max-width:100%!important;
+ height:190px!important;min-height:190px!important;max-height:190px!important;
+ padding:0!important;background:transparent!important;color:#fff!important;
+ border:0!important;border-radius:0!important;box-shadow:none!important;z-index:0!important;
+}
+#get-music-player[data-inline] .get-music-main{display:flex!important;height:100%!important;min-height:0!important;padding:0!important}
+#get-music-player[data-inline] .get-music-head{height:25px;min-height:25px;flex:none}
+#get-music-player[data-inline] .get-music-title{font-size:11px;color:#f7e8f1;white-space:normal;overflow-wrap:anywhere;line-height:1.25}
+#get-music-player[data-inline] .get-music-disc{width:120px;height:120px;max-width:100%;flex:none;margin:2px auto 6px;background:repeating-radial-gradient(circle,#121419 0px,#121419 2px,#24262d 3px,#16181f 5px)}
+#get-music-player[data-inline] .get-music-player-image{width:100%;height:100%}
+#get-music-player[data-inline] .get-music-controls{flex:0 0 auto;width:100%;display:flex;min-height:31px;gap:2px}
+#get-music-player[data-inline] .get-music-control{min-width:0;width:20%;height:29px;border:0!important;border-radius:50%;background:transparent!important;color:#d8c8d7!important;padding:4px}
+#get-music-player[data-inline] .get-music-control svg{width:18px;height:18px}
+#get-music-player[data-inline] .get-music-control:hover,#get-music-player[data-inline] .get-music-control.is-active{color:#fa6699!important}
+#get-music-player[data-inline] .get-music-control.is-single-track{color:#696270!important}
+#get-music-player[data-inline] .get-music-close{display:none}
+#get-music-player[data-inline] .get-music-lyrics-panel{padding:0}
+#get-music-player[data-inline] .get-music-lyrics-panel[hidden]{display:none!important}

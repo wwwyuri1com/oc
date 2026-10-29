@@ -1,1 +1,143 @@
-:root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#e2e2e5;background:#111214;font-size:13px}*{box-sizing:border-box}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;background:#202226;color:inherit;border:1px solid #3b3d42;border-radius:4px;padding:6px 9px;cursor:pointer}a{color:inherit;text-decoration:none}a:hover{color:#d3b6cb}button:focus-visible,a:focus-visible{outline:2px solid #cdb5c7;outline-offset:2px}[hidden]{display:none!important}.oc-shell{width:100%;max-width:360px;margin:0 auto}.oc-heading{padding:22px 8px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}.oc-heading h1,.oc-heading h2{font-size:19px;font-weight:500;margin:0}.oc-heading a{font-size:10px;color:#9b9ca3}.oc-collection{display:grid;grid-template-columns:14.444444% 85.555556%;align-items:start}.oc-tabs{position:sticky;top:12px;display:flex;flex-direction:column;gap:7px;padding:0 0 12px 4px}.oc-tabs button{border:0;border-radius:4px 0 0 4px;background:transparent;color:#8e9098;padding:10px 2px;font-size:clamp(8px,2.8vw,10px);overflow-wrap:anywhere;min-width:0}.oc-tabs button[aria-pressed=true]{background:#282a30;color:#f0e5ed;border-left:2px solid #c8afbf}.oc-collection-main{padding:0 2.597403% 24px;min-width:0}.oc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 1.369863%}.oc-card{display:block;position:relative;aspect-ratio:73/165;overflow:hidden;background:#202226;border-radius:2px}.oc-card img{position:absolute;max-width:none;height:auto;display:block}.oc-card span{position:absolute;bottom:0;left:0;right:0;padding:17px 3px 6px;background:linear-gradient(transparent,#000b);text-align:center;font-size:clamp(8px,2.8vw,10px);line-height:1.35;overflow-wrap:anywhere}.oc-banner{display:block;width:100%;aspect-ratio:3/1;object-fit:contain;background:#191a1d;margin-bottom:10px}.oc-top{padding:16px 8px;display:flex;align-items:start;gap:8px;justify-content:space-between}.oc-top nav{font-size:10px;color:#aaa;line-height:1.8;min-width:0;overflow-wrap:anywhere}.oc-top button{font-size:10px;flex-shrink:0}.oc-hero{padding:0 8px;display:grid;grid-template-columns:48% minmax(0,1fr);gap:12px;align-items:start}.oc-art{margin:0;position:relative;min-width:0}.oc-art>img{width:100%;display:block;height:auto}.oc-identity{padding-top:6px;min-width:0}.oc-identity h1{font-size:22px;font-weight:500;line-height:1.2;margin:0 0 8px;overflow-wrap:anywhere}.oc-muted{color:#878991;font-size:12px}.oc-theme{font-size:10px;color:#aaa;margin:25px 0 8px}.oc-song-button{padding:0;text-align:left;line-height:1.6;border:0;background:none;color:#dec4d5;overflow-wrap:anywhere}.oc-section{margin:23px 8px 0;padding:17px 0 0;border-top:1px solid #292b30}.oc-section:last-of-type{padding-bottom:32px}.oc-section h2{font-size:14px;font-weight:500;margin:0 0 14px}.oc-section h3{font-size:11px;color:#a7a7ae;font-weight:500;margin:20px 0 9px}.oc-prose,blockquote{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.85}.oc-section blockquote{margin:12px 0;padding:2px 0 2px 12px;border-left:2px solid #6c5968;color:#c9bec7}.oc-section ul{list-style:none;padding:0;margin:0}.oc-section li{padding:8px 0;line-height:1.5}.oc-empty{color:#888;font-size:12px}#oc-collection-dialog{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#111214;color:#e2e2e5;overflow-y:auto}#oc-collection-dialog::backdrop{background:#111214}
+/* YURI NO1 OC · Version B — Immersive Card Gallery
+   Site-local visual system. No WWW / Social / Music CSS dependencies. */
+:root {
+  color-scheme: dark;
+  --oc-accent: #fa6699;
+  --oc-ink: #f7f3f7;
+  --oc-muted: #a5a0ae;
+  --oc-stage: #111214;
+  --oc-veil: rgba(25,23,33,.76);
+  --oc-line: rgba(255,255,255,.12);
+  --oc-radius: 24px;
+  --oc-glass-blur: blur(28px) saturate(135%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  color: var(--oc-ink);
+  background: #07070a;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;width:100%;min-width:0;min-height:100%;scroll-behavior:smooth}
+body{position:relative;min-height:100dvh;overflow-x:hidden;overflow-wrap:anywhere;isolation:isolate;background:#07070a}
+body::before,body::after{content:"";position:fixed;inset:-44px;pointer-events:none}
+body::before{z-index:-2;background-image:var(--oc-page-art,none);background-position:center;background-size:cover;background-repeat:no-repeat;filter:blur(15px) brightness(1.2) saturate(.92);transform:scale(1.12)}
+body::after{z-index:-1;inset:0;background:radial-gradient(ellipse at 50% 33%,rgba(0,0,0,.08) 0%,rgba(0,0,0,.28) 53%,rgba(0,0,0,.58) 100%)}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+a:hover{color:#fff}
+button{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible{outline:2px solid var(--oc-accent);outline-offset:3px}
+[hidden]{display:none!important}
+.oc-visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.oc-shell{position:relative;z-index:2;display:flex;flex-direction:column;width:min(360px,100%);max-width:360px;min-height:100dvh;margin:0 auto;background:var(--oc-stage);box-shadow:0 15px 90px rgba(0,0,0,.4);border-inline:1px solid rgba(255,255,255,.055)}
+.oc-shell>*{min-width:0;max-width:100%}
+/* Music-family topbar interpreted as the OC brand, never copied into Music. */
+.oc-brand-header{height:78px;display:flex;align-items:center;justify-content:space-between;padding:18px 22px 12px;flex:none}
+.oc-brand{display:flex;flex-direction:column;gap:4px;min-width:0}
+.oc-brand-title{font-size:11px;letter-spacing:.18em;font-weight:800;color:#fff;text-shadow:0 3px 15px #0009}
+.oc-brand-note{font-size:8px;letter-spacing:.22em;color:rgba(238,224,238,.59);font-weight:700}
+.oc-brand-ornament{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.055);box-shadow:inset 0 1px rgba(255,255,255,.10);color:#e4c8d7;font-size:14px}
+/* Landing editorial masthead */
+.oc-intro{padding:24px 24px 27px;min-width:0}
+.oc-kicker{margin:0;color:#d5a5bb;letter-spacing:.17em;font-size:9px;line-height:1.7;font-weight:750;text-transform:uppercase}
+.oc-intro h1{font-size:39px;letter-spacing:-.065em;line-height:1.13;font-weight:550;margin:11px 0 14px;color:#faf6fa}
+.oc-intro h1 em{font-style:normal;color:var(--oc-accent);font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.055em}
+.oc-intro-subtitle{color:#a9a2b1;font-size:12px;line-height:1.75;margin:0;max-width:245px}
+.oc-intro-rule{display:block;margin-top:23px;width:43px;height:2px;background:linear-gradient(90deg,var(--oc-accent),transparent)}
+/* Collection cards — two wide portraits and intentional whitespace. */
+.oc-gallery{padding:0 16px 40px;flex:1}
+.oc-collection{min-width:0}
+.oc-tabs{display:flex;align-items:center;gap:7px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:4px 4px 16px;scroll-snap-type:x proximity}
+.oc-tabs::-webkit-scrollbar{display:none}
+.oc-tabs button{flex:none;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.045);color:#aba4b0;font-size:11px;font-weight:600;padding:9px 14px;white-space:nowrap;scroll-snap-align:start;transition:background .2s,color .2s,border-color .2s}
+.oc-tabs button[aria-pressed=true]{color:#fff;border-color:rgba(250,102,153,.55);background:rgba(250,102,153,.19);box-shadow:0 0 0 1px rgba(250,102,153,.055)}
+.oc-tabs button:hover{background:rgba(255,255,255,.11)}
+.oc-collection-main{min-width:0}
+.oc-banner-wrap{position:relative;overflow:hidden;margin:4px 0 22px;border-radius:14px;border:1px solid rgba(255,255,255,.13);background:#1e1e23}
+.oc-banner{display:block;aspect-ratio:3/1;width:100%;object-fit:contain}
+.oc-gallery-heading{display:flex;justify-content:space-between;align-items:center;padding:7px 4px 15px;gap:12px}
+.oc-gallery-heading span{font-size:10px;font-weight:850;letter-spacing:.18em;color:#e7dce6}
+.oc-gallery-heading small{font-size:9px;letter-spacing:.11em;color:#8d8591}
+.oc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;perspective:1100px;isolation:isolate;align-items:start}
+.oc-card{position:relative;display:block;min-width:0;aspect-ratio:73/165;overflow:hidden;isolation:isolate;border-radius:10px;background:#181720;box-shadow:0 13px 27px rgba(0,0,0,.49),0 0 0 1px rgba(255,255,255,.13);transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.18,.75,.25,1),box-shadow .25s;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.oc-card:hover,.oc-card:focus-visible{box-shadow:0 16px 34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.3)}
+.oc-card.oc-pressed{z-index:5;transition:none}
+.oc-card-media{position:absolute;display:block;max-width:none;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.oc-card>span{position:absolute;z-index:7;bottom:0;left:0;right:0;padding:34px 8px 11px;background:linear-gradient(180deg,transparent,rgba(5,4,9,.86));text-align:center;font-size:12px;line-height:1.3;font-weight:650;color:#fff;letter-spacing:.005em;text-shadow:0 1px 8px #000}
+.oc-empty{color:var(--oc-muted);padding:20px 4px 40px}
+/* Decorative layers keep the established Rank / Effect / Frame inheritance and presets. */
+.oc-effect,.oc-frame,.oc-glow{position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.oc-effect{z-index:1;background-position:var(--shine-x,50%) var(--shine-y,50%)}
+.oc-glow{z-index:2;opacity:0;background:radial-gradient(circle at var(--shine-x,50%) var(--shine-y,50%),#ffffff70,transparent 62%);transition:opacity .22s}
+.oc-pressed .oc-glow{opacity:.30}
+.oc-frame{z-index:4}
+.oc-stars{position:absolute;top:6px;left:32%;right:5px;z-index:5;pointer-events:none;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:0;color:#fff;font-size:11px;line-height:1.08}
+.oc-stars i{font-style:normal}
+/* Detail navigation / showcase */
+.oc-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 20px 22px}
+.oc-top nav{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#c3b7c2;font-size:9px;letter-spacing:.06em}
+.oc-top nav a{flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.oc-crumb-sep{color:#765d70}
+#oc-open-collection{flex:none;border:1px solid rgba(255,255,255,.19);border-radius:999px;padding:9px 11px;background:rgba(255,255,255,.06);color:#fff;font-size:10px;font-weight:600;box-shadow:inset 0 1px rgba(255,255,255,.07)}
+#oc-open-collection span{font-size:14px;vertical-align:-1px;margin-right:4px;color:var(--oc-accent)}
+#oc-open-collection:hover{background:rgba(255,255,255,.12)}
+.oc-hero{display:flex;flex-direction:column;align-items:center;padding:0 18px;min-width:0}
+.oc-card-stage{width:100%;display:flex;flex-direction:column;align-items:center;padding:18px 10px 12px;border-radius:26px;background:radial-gradient(ellipse at 50% 35%,rgba(151,99,134,.19),rgba(39,30,44,.10) 49%,transparent 70%);min-width:0}
+.oc-card-eyebrow{display:flex;justify-content:space-between;width:100%;margin:0 0 20px;padding:0 12px;color:#9e8c9d;letter-spacing:.22em;font-size:9px;font-weight:800}
+.oc-card-eyebrow span{color:#f9bad3}
+.oc-art{position:relative;isolation:isolate;overflow:hidden;width:min(240px,100%);margin:0 auto;min-width:0;border-radius:11px;background:#1b1820;border:1px solid rgba(255,255,255,.40);box-shadow:0 23px 48px #000b,0 0 30px rgba(227,178,223,.12);transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s ease;touch-action:pan-y;user-select:none}
+.oc-art.oc-pressed{transition:none}
+.oc-art.oc-video-active,.oc-art.is-loading,.oc-art.is-playing{transform:none!important;touch-action:auto}
+.oc-art.oc-video-active .oc-glow{opacity:0!important}
+.oc-art-media{position:absolute;inset:0;z-index:0;background-size:100% 100%;background-position:center;background-repeat:no-repeat;pointer-events:none;user-select:none}
+.oc-art>.oc-stars{font-size:12px;top:9px}
+.oc-art>.y1-animation-toggle{z-index:8}
+.oc-identity{width:100%;text-align:center;padding:30px 4px 12px}
+.oc-identity h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:35px;line-height:1.17;letter-spacing:-.035em;color:#fff;margin:10px auto 18px;overflow-wrap:anywhere}
+.oc-identity-line{display:block;width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--oc-accent),transparent);margin:0 auto}
+/* Mini Music Box lives in a single OC-owned glass soundtrack panel. */
+.oc-soundtrack{margin:16px 19px 0;padding:20px 19px 17px;min-width:0;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:linear-gradient(160deg,rgba(73,57,73,.29),rgba(25,25,32,.58));box-shadow:0 15px 38px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.055)}
+.oc-soundtrack[aria-hidden=true]{min-height:0;border:0;background:transparent;box-shadow:none;padding:0;margin:0 19px}
+.oc-section-title{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:18px}
+.oc-section-title>span{font-size:9px;color:var(--oc-accent);letter-spacing:.20em;font-weight:800}
+.oc-section-title h2{font-weight:500;color:#f4e8ef;font-size:20px;letter-spacing:-.025em;margin:0}
+.oc-theme-slot{min-width:0;min-height:190px}
+.oc-soundtrack[aria-hidden=true] .oc-theme-slot{min-height:0}
+/* Lyrics are an additional in-flow chapter; never an overlay. */
+.oc-lyrics-slot{display:flex;flex-direction:column;position:relative;isolation:isolate;box-sizing:border-box;height:230px;max-height:230px;margin:20px 19px 0;padding:17px 18px 14px;border-radius:21px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(155deg,rgba(63,53,69,.47),rgba(20,18,25,.75));box-shadow:0 13px 30px rgba(0,0,0,.19);gap:0;overflow:hidden;color:#f2e9ef}
+.oc-lyrics-slot .get-music-lyrics-head{position:relative;flex:0 0 auto;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;margin:0 0 11px!important;color:#fff;font-size:13px;font-weight:600}
+.oc-lyrics-slot .oc-lyrics-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-color:#fa6699 transparent;scrollbar-width:thin}
+.oc-lyrics-slot .get-music-lyrics-text{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.85 system-ui,sans-serif;color:#f5edf2;margin:0;padding:0 6px 8px 0}
+.oc-lyrics-slot .get-music-back{flex:none;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.075);color:#fff;padding:7px 11px}
+/* Editorial profile chapters */
+.oc-section{margin:35px 22px 0;padding:30px 0 0;border-top:1px solid var(--oc-line);min-width:0}
+.oc-section:last-of-type{padding-bottom:50px}
+.oc-section .oc-section-title{margin-bottom:22px}
+.oc-section .oc-section-title h2{font-size:23px}
+.oc-muted{color:var(--oc-muted);font-size:12px;line-height:1.6}
+.oc-prose{font:14px/2.04 Georgia,"Times New Roman",serif;white-space:pre-wrap;overflow-wrap:anywhere;color:#e7e0e6;min-width:0}
+.oc-section blockquote{margin:13px 0;padding:12px 14px;border:1px solid rgba(255,255,255,.09);border-left:2px solid rgba(250,102,153,.75);border-radius:0 12px 12px 0;background:rgba(255,255,255,.035);font:italic 13px/1.8 Georgia,"Times New Roman",serif;white-space:pre-wrap;overflow-wrap:anywhere}
+.oc-section h3{font-size:10px;font-weight:650;letter-spacing:.1em;color:#a8a0ad;margin:24px 0 11px}
+.oc-section ul{list-style:none;margin:0;padding:0}
+.oc-section li{border-bottom:1px solid rgba(255,255,255,.065);padding:12px 0;font-size:13px;line-height:1.5}
+.oc-section li a{display:block}
+.oc-section li a:hover{color:var(--oc-accent)}
+/* Music Tracks-inspired translucent collection panel. */
+#oc-collection-dialog{position:fixed;inset:0;max-width:none;max-height:none;width:100%;height:100%;padding:0;margin:0;border:0;background:transparent;color:var(--oc-ink);overflow:hidden}
+#oc-collection-dialog::backdrop{background:rgba(4,3,9,.66);backdrop-filter:blur(10px) saturate(.75);-webkit-backdrop-filter:blur(10px) saturate(.75)}
+.oc-collection-panel{position:relative;display:flex;flex-direction:column;width:min(344px,calc(100% - 22px));height:min(690px,calc(100dvh - 44px));margin:max(22px,calc((100dvh - min(690px,100dvh - 44px))/2)) auto 0;border-radius:26px;overflow:hidden;background:rgba(39,35,49,.79);border:1px solid rgba(255,255,255,.18);box-shadow:0 26px 85px #000a,inset 0 1px rgba(255,255,255,.08);backdrop-filter:var(--oc-glass-blur);-webkit-backdrop-filter:var(--oc-glass-blur)}
+.oc-heading{display:flex;flex:none;justify-content:space-between;align-items:center;gap:15px;padding:23px 20px 19px;border-bottom:1px solid rgba(255,255,255,.09)}
+.oc-heading h2{font-size:24px;font-weight:550;letter-spacing:-.035em;margin:3px 0 0}
+.oc-heading .oc-kicker{font-size:8px;color:#c5abc0}
+#oc-close-collection{display:grid;place-items:center;flex:none;width:41px;height:41px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(9,9,15,.58);box-shadow:inset 0 1px rgba(255,255,255,.1);color:#fff;padding:0;transition:transform .2s,background .2s}
+#oc-close-collection:hover{background:rgba(250,102,153,.2);transform:rotate(90deg)}
+.oc-collection-scroll{flex:1;min-height:0;overflow:auto;padding:18px 15px 20px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ba7b9b transparent}
+#oc-collection-dialog .oc-tabs{padding-bottom:20px}
+#oc-collection-dialog .oc-grid{gap:13px 10px}
+#oc-collection-dialog .oc-card{border-radius:9px}
+#oc-collection-dialog .oc-card>span{font-size:11px;padding-bottom:10px}
+/* Header/footer are stable across Index and Get, not part of dialog. */
+.oc-footer{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:auto;padding:23px 20px 24px;color:#938995;border-top:1px solid rgba(255,255,255,.085);font-size:10px;letter-spacing:.02em}
+.oc-footer a:first-child{min-width:0;overflow-wrap:anywhere}
+.oc-footer a:last-child{flex:none;color:#f4a4c1;white-space:nowrap}
+.oc-footer a:hover{color:#fff}
+@media(max-width:359px){.oc-brand-header{padding-inline:17px}.oc-intro{padding-inline:18px}.oc-gallery{padding-inline:12px}.oc-grid{gap:11px 9px}.oc-hero{padding-inline:13px}.oc-soundtrack,.oc-lyrics-slot{margin-inline:13px}.oc-section{margin-inline:17px}.oc-top{padding-inline:13px}.oc-collection-panel{width:calc(100% - 12px)}}
+@media(prefers-reduced-motion:reduce){html,body{scroll-behavior:auto}.oc-card,.oc-art,#oc-close-collection{transition:none!important;transform:none!important}.oc-glow{transition:none}}

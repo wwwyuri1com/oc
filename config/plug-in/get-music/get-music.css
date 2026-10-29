@@ -34,3 +34,8 @@
 @media(prefers-reduced-motion:reduce) { #get-music-player .get-music-record {animation-duration:16s;} }
 
 #get-music-player .get-music-visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+/* OC inline lyrics occupy a separate scroll area below the player. */
+#get-music-player[data-inline="true"] .get-music-lyrics-panel{height:200px;max-height:200px;overflow-y:auto;padding:10px;scrollbar-color:#fa6699 #2f262900;scrollbar-width:thin;border-top:1px solid #303036;margin-top:12px;display:block}
+#get-music-player[data-inline="true"] .get-music-lyrics-panel[hidden]{display:none!important}
+#get-music-player[data-inline="true"].is-lyrics-open .get-music-main{display:block!important}
