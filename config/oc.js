@@ -1,6 +1,57 @@
 'use strict';
 (()=>{
- const filter=key=>{document.querySelectorAll('[data-meta]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.meta===key)));document.querySelectorAll('[data-character-meta]').forEach(c=>c.hidden=!!key&&c.dataset.characterMeta!==key);document.querySelectorAll('[data-banner]').forEach(b=>{b.hidden=b.dataset.banner!==key;if(!b.hidden){const img=b.querySelector('.oc-banner');if(img&&!img.src)img.src=img.dataset.src}});document.querySelectorAll('.oc-collection').forEach(area=>{const n=area.querySelectorAll('.oc-card:not([hidden])').length;const count=area.querySelector('.oc-gallery-heading small');if(count)count.textContent=n+(n===1?' CARD':' CARDS')})};
+ const filter=key=>{
+   document.querySelectorAll('[data-meta]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.meta===key)));
+   document.querySelectorAll('[data-character-meta]').forEach(c=>c.hidden=!!key&&c.dataset.characterMeta!==key);
+   document.querySelectorAll('[data-banner]').forEach(b=>{
+     b.hidden=b.dataset.banner!==key;
+     if(!b.hidden){const img=b.querySelector('.oc-banner');if(img&&!img.src)img.src=img.dataset.src}
+   });
+   document.querySelectorAll('.oc-collection').forEach(area=>{
+     const heading=area.querySelector('[data-oc-gallery-title]');
+     const selected=[...area.querySelectorAll('[data-meta]')].find(b=>b.dataset.meta===key);
+     if(heading)heading.textContent=selected?.dataset.metaName||'ALL COLLECTION';
+     const n=area.querySelectorAll('.oc-card:not([hidden])').length;
+     const count=area.querySelector('.oc-gallery-heading small');
+     if(count)count.textContent=n+(n===1?' CARD':' CARDS');
+   });
+ };
+ // Keep the publisher's inherited Rank/Effect/Frame sort until the visitor
+ // explicitly selects one of the four alternate ordering modes.
+ document.querySelectorAll('.oc-collection').forEach(area=>{
+   const grid=area.querySelector('.oc-grid');
+   if(!grid)return;
+   const original=[...grid.querySelectorAll('.oc-card')];
+   const stable=new Map(original.map((card,i)=>[card,i]));
+   const collator=new Intl.Collator('en',{numeric:true,sensitivity:'base'});
+   // Persist only the visitor's visual density; it does not modify card data.
+   const columnsKey='y1-oc-gallery-columns';
+   let selectedSize='s';
+   try{const saved=localStorage.getItem(columnsKey);if(['s','m','l'].includes(saved))selectedSize=saved}catch(_e){}
+   const setColumns=(size,persist)=>{
+     if(!['s','m','l'].includes(size))return;
+     area.dataset.ocColumns=size;
+     area.querySelectorAll('[data-oc-size]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.ocSize===size)));
+     if(persist){try{localStorage.setItem(columnsKey,size)}catch(_e){}}
+   };
+   setColumns(selectedSize,false);
+   area.querySelectorAll('[data-oc-size]').forEach(button=>button.addEventListener('click',()=>setColumns(button.dataset.ocSize,true)));
+   area.querySelectorAll('[data-oc-sort]').forEach(button=>button.addEventListener('click',()=>{
+     const mode=button.dataset.ocSort;
+     if(!['name-asc','name-desc','stars-desc','stars-asc'].includes(mode))return;
+     // The publisher already orders cards by effective Rank > Effect > Frame
+     // > META peak stars > META group > child name. Reuse that exact order
+     // rather than recomputing it differently in the browser.
+     const ordered=mode==='stars-desc'?original.slice():
+       mode==='stars-asc'?original.slice().reverse():
+       original.slice().sort((a,b)=>{
+         const order=collator.compare(a.dataset.sortName||'',b.dataset.sortName||'');
+         return (mode==='name-desc'?-order:order)||stable.get(a)-stable.get(b);
+       });
+     for(const card of ordered)grid.appendChild(card);
+     area.querySelectorAll('[data-oc-sort]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+   }));
+ });
  const initial=new URLSearchParams(location.search).get('oc')||'';
  filter([...document.querySelectorAll('[data-meta]')].some(b=>b.dataset.meta===initial)?initial:'');
  document.querySelectorAll('[data-meta]').forEach(b=>b.addEventListener('click',()=>{filter(b.dataset.meta);if(!document.getElementById('oc-collection-dialog')){const url=new URL(location.href);if(b.dataset.meta)url.searchParams.set('oc',b.dataset.meta);else url.searchParams.delete('oc');history.replaceState(null,'',url)}}));
@@ -21,7 +72,89 @@
 })();
 
 // The hero card uses the same pointer tilt as collection cards; video playback disables it.
-(()=>{document.querySelectorAll('.oc-art.oc-decorated').forEach(card=>{let drag=null,start=null,moved=false;const reset=()=>{drag=null;start=null;card.classList.remove('oc-pressed');card.style.removeProperty('--tilt-x');card.style.removeProperty('--tilt-y')};const playing=()=>!!card.querySelector('.y1-animated-video');const sync=()=>{const active=playing();if(card.classList.contains('oc-video-active')!==active)card.classList.toggle('oc-video-active',active);if(active&&(drag!==null||card.classList.contains('oc-pressed')))reset()};new MutationObserver(sync).observe(card,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class']});card.addEventListener('play',sync,true);card.addEventListener('pause',sync,true);card.addEventListener('ended',sync,true);card.addEventListener('pointerdown',ev=>{if(playing()||ev.button!==0||!ev.isPrimary||ev.target.closest('button,video'))return;drag=ev.pointerId;start={x:ev.clientX,y:ev.clientY};moved=false;card.setPointerCapture(ev.pointerId);card.classList.add('oc-pressed')});card.addEventListener('pointermove',ev=>{if(drag!==ev.pointerId||playing())return;if(start&&Math.hypot(ev.clientX-start.x,ev.clientY-start.y)>5)moved=true;const r=card.getBoundingClientRect(),x=Math.max(0,Math.min(1,(ev.clientX-r.left)/r.width)),y=Math.max(0,Math.min(1,(ev.clientY-r.top)/r.height));card.style.setProperty('--tilt-x',((.5-y)*14)+'deg');card.style.setProperty('--tilt-y',((x-.5)*14)+'deg');card.style.setProperty('--shine-x',(x*100)+'%');card.style.setProperty('--shine-y',(y*100)+'%')});['pointerup','pointercancel','lostpointercapture'].forEach(k=>card.addEventListener(k,reset));card.addEventListener('click',ev=>{if(moved&&ev.detail!==0){ev.preventDefault();ev.stopImmediatePropagation();moved=false}},true);sync()})})();
+(()=>{document.querySelectorAll('.oc-art.oc-decorated:not(.oc-flip-face)').forEach(card=>{let drag=null,start=null,moved=false;const reset=()=>{drag=null;start=null;card.classList.remove('oc-pressed');card.style.removeProperty('--tilt-x');card.style.removeProperty('--tilt-y')};const playing=()=>!!card.querySelector('.y1-animated-video');const sync=()=>{const active=playing();if(card.classList.contains('oc-video-active')!==active)card.classList.toggle('oc-video-active',active);if(active&&(drag!==null||card.classList.contains('oc-pressed')))reset()};new MutationObserver(sync).observe(card,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class']});card.addEventListener('play',sync,true);card.addEventListener('pause',sync,true);card.addEventListener('ended',sync,true);card.addEventListener('pointerdown',ev=>{if(playing()||ev.button!==0||!ev.isPrimary||ev.target.closest('button,video'))return;drag=ev.pointerId;start={x:ev.clientX,y:ev.clientY};moved=false;card.setPointerCapture(ev.pointerId);card.classList.add('oc-pressed')});card.addEventListener('pointermove',ev=>{if(drag!==ev.pointerId||playing())return;if(start&&Math.hypot(ev.clientX-start.x,ev.clientY-start.y)>5)moved=true;const r=card.getBoundingClientRect(),x=Math.max(0,Math.min(1,(ev.clientX-r.left)/r.width)),y=Math.max(0,Math.min(1,(ev.clientY-r.top)/r.height));card.style.setProperty('--tilt-x',((.5-y)*14)+'deg');card.style.setProperty('--tilt-y',((x-.5)*14)+'deg');card.style.setProperty('--shine-x',(x*100)+'%');card.style.setProperty('--shine-y',(y*100)+'%')});['pointerup','pointercancel','lostpointercapture'].forEach(k=>card.addEventListener(k,reset));card.addEventListener('click',ev=>{if(moved&&ev.detail!==0){ev.preventDefault();ev.stopImmediatePropagation();moved=false}},true);sync()})})();
+
+// GET-only double-sided card. The card's front retains the existing video plugin.
+(()=>{
+ const scene=document.querySelector?.('[data-oc-flip]');
+ if(!scene)return;
+ const buttons=[...document.querySelectorAll('.oc-flip-tab[data-oc-face]')];
+ const front=scene.querySelector('.oc-flip-front');
+ let gesture=null,suppressNextClick=false;
+ const playing=()=>!!front?.querySelector('.y1-animated-video');
+ const resetTilt=()=>{
+   gesture=null;scene.classList.remove('oc-pressed');
+   scene.style.removeProperty('--tilt-x');scene.style.removeProperty('--tilt-y');
+ };
+ const syncVideo=()=>{
+   const active=playing();scene.classList.toggle('oc-video-active',active);
+   if(active)resetTilt();
+ };
+ const setFace=face=>{
+   if(face!== 'full'&&face!=='focus')return;
+   if(face==='focus'&&playing()){
+     // Let the original plugin cleanly stop and unload its video.
+     front.querySelector('.y1-animation-toggle')?.click();
+   }
+   resetTilt();
+   scene.dataset.face=face;
+   for(const b of buttons)b.setAttribute('aria-pressed',String(b.dataset.ocFace===face));
+   syncVideo();
+ };
+ for(const b of buttons)b.addEventListener('click',()=>setFace(b.dataset.ocFace));
+ const paint=ev=>{
+   const r=scene.getBoundingClientRect();
+   if(!r.width||!r.height)return;
+   const x=Math.max(0,Math.min(1,(ev.clientX-r.left)/r.width));
+   const y=Math.max(0,Math.min(1,(ev.clientY-r.top)/r.height));
+   scene.style.setProperty('--tilt-x',((.5-y)*12)+'deg');
+   scene.style.setProperty('--tilt-y',((x-.5)*12)+'deg');
+   scene.querySelectorAll('.oc-flip-face').forEach(face=>{
+     face.style.setProperty('--shine-x',(x*100)+'%');
+     face.style.setProperty('--shine-y',(y*100)+'%');
+   });
+ };
+ scene.addEventListener('pointerdown',ev=>{
+   if(!ev.isPrimary||ev.button!==0||ev.target.closest('button,video'))return;
+   suppressNextClick=false;
+   gesture={id:ev.pointerId,x:ev.clientX,y:ev.clientY,dx:0,dy:0};
+   scene.setPointerCapture(ev.pointerId);
+   scene.classList.add('oc-pressed');
+   if(!playing())paint(ev);
+ });
+ scene.addEventListener('pointermove',ev=>{
+   if(!gesture||gesture.id!==ev.pointerId)return;
+   gesture.dx=ev.clientX-gesture.x;gesture.dy=ev.clientY-gesture.y;
+   if(!playing())paint(ev);
+ });
+ scene.addEventListener('pointerup',ev=>{
+   if(!gesture||gesture.id!==ev.pointerId)return;
+   const dx=ev.clientX-gesture.x,dy=ev.clientY-gesture.y;
+   const flip=Math.abs(dx)>=55&&Math.abs(dx)>Math.abs(dy)*1.3;
+   // Any real drag is a card interaction, never a video click.
+   suppressNextClick=Math.hypot(dx,dy)>6;
+   resetTilt();
+   if(flip)setFace(scene.dataset.face==='focus'?'full':'focus');
+ });
+ for(const name of ['pointercancel','lostpointercapture'])scene.addEventListener(name,resetTilt);
+ // Pointer capture targets the scene, not always the front image. Route a
+ // deliberate click to the original OC video plugin (without duplicating it).
+ // The plugin retains ownership of loading, stopping and unloading the video.
+ scene.addEventListener('click',ev=>{
+   if(ev.target.closest('button'))return; // FULL/FOCUS and video icon work independently.
+   if(suppressNextClick){
+     ev.preventDefault();ev.stopImmediatePropagation();suppressNextClick=false;
+     return;
+   }
+   if(scene.dataset.face!=='full')return;
+   const toggle=front?.querySelector('.y1-animation-toggle');
+   if(!toggle)return;
+   ev.preventDefault();ev.stopImmediatePropagation();
+   toggle.click();
+ },true);
+ new MutationObserver(syncVideo).observe(front,{childList:true,subtree:true});
+ syncVideo();
+})();
 
 // B Gallery: the stable shared WWW player still owns audio, track switching and lyric data.
 // OC only moves the lyric panel into the page flow and adds close-on-second-click behavior.

@@ -1,12 +1,40 @@
-.oc-decorated[data-effect="diamond"] .oc-effect{}
+.oc-decorated[data-effect="rainbow"]{--oc-power:0.500;--oc-time:14.00s}
+.oc-decorated[data-effect="rainbow"]{--oc-sweep-power:0.900}
+.oc-decorated[data-effect="rainbow"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-rainbow;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes oc-sheen-pass-rainbow{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
 .oc-decorated[data-effect="rainbow"] .oc-effect{}
+.oc-decorated[data-effect="diamond"]{--oc-power:0.800;--oc-time:14.00s}
+.oc-decorated[data-effect="diamond"]{--oc-sweep-power:0.900}
+.oc-decorated[data-effect="diamond"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-diamond;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes oc-sheen-pass-diamond{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
+.oc-decorated[data-effect="diamond"] .oc-effect{}
+.oc-decorated[data-effect="lattice"]{--oc-power:0.300;--oc-time:14.00s}
+.oc-decorated[data-effect="lattice"]{--oc-sweep-power:0.900}
+.oc-decorated[data-effect="lattice"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-lattice;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes oc-sheen-pass-lattice{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
 .oc-decorated[data-effect="lattice"] .oc-effect{}
-.oc-decorated[data-frame="diamond"] .oc-frame{border: 2px solid #d9f5ff; box-shadow: inset 0 0 7px #d9f5ff, inset 0 0 2px #fff;}
+.oc-decorated[data-effect="default"]{--oc-power:0.300;--oc-time:5.00s}
+.oc-decorated[data-effect="default"]{--oc-sweep-power:0.300}
+.oc-decorated[data-effect="default"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-default;animation-duration:5.8000s;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes oc-sheen-pass-default{0%{transform:translateX(-170%) rotate(15deg)}13.793103%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
+.oc-decorated[data-effect="default"] .oc-effect{background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
+mix-blend-mode: screen;
+opacity: .6;}
+.oc-decorated[data-frame="diamond"] .oc-frame{border: 2px solid #d9f5ff;}
 .oc-decorated[data-frame="diamond"] .oc-stars{color: #d9f5ff; text-shadow: 0 0 3px #d9f5ff;}
 .oc-decorated[data-frame="diamond"] .oc-rank-letter{color: #d9f5ff; text-shadow: 0 1px 2px #000, 0 0 4px #d9f5ff;}
-.oc-decorated[data-frame="gold"] .oc-frame{border: 2px solid #ffd56a; box-shadow: inset 0 0 7px #ffd56a, inset 0 0 2px #fff;}
+.oc-decorated[data-frame="gold"] .oc-frame{border: 2px solid #ffd56a;}
 .oc-decorated[data-frame="gold"] .oc-stars{color: #ffd56a; text-shadow: 0 0 3px #ffd56a;}
 .oc-decorated[data-frame="gold"] .oc-rank-letter{color: #ffd56a; text-shadow: 0 1px 2px #000, 0 0 4px #ffd56a;}
-.oc-decorated[data-frame="bronze"] .oc-frame{border: 2px solid #cd8d60; box-shadow: inset 0 0 7px #cd8d60, inset 0 0 2px #fff;}
+.oc-decorated[data-frame="bronze"] .oc-frame{border: 2px solid #cd8d60;}
 .oc-decorated[data-frame="bronze"] .oc-stars{color: #cd8d60; text-shadow: 0 0 3px #cd8d60;}
 .oc-decorated[data-frame="bronze"] .oc-rank-letter{color: #cd8d60; text-shadow: 0 1px 2px #000, 0 0 4px #cd8d60;}
+.oc-decorated[data-frame="mist"] .oc-frame{    border: 2px solid #344242;}
+.oc-decorated[data-frame="mist"] .oc-stars{color: #9bbdbd;    text-shadow: 0 1px 2px #000, 0 0 4px #78a29b;
+}
+.oc-decorated[data-frame="mist"] .oc-rank-letter{    color: #85a4a4;    text-shadow: 0 1px 2px #000, 0 0 4px #7abdb2;}
+.oc-decorated[data-frame="rusty"] .oc-frame{    border: 2px solid #4f3232;}
+.oc-decorated[data-frame="rusty"] .oc-stars{    color: #896950;
+    text-shadow: 0 1px 2px #000, 0 0 4px #4d2d13;}
+.oc-decorated[data-frame="rusty"] .oc-rank-letter{    color: #b29076;
+    text-shadow: 0 1px 2px #000, 0 0 4px #48260b;}

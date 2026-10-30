@@ -8,14 +8,32 @@
 .oc-decorated>.oc-frame{z-index:4}
 .oc-decorated[data-foil]>.oc-effect{opacity:var(--oc-power)}
 .oc-decorated[data-foil]>.oc-spark{opacity:calc(var(--oc-power)*.7)}
-.oc-decorated[data-foil]>.oc-sweep{opacity:calc(var(--oc-power)*.55)}
-.oc-decorated[data-foil]:not([data-foil=none])>.oc-sweep::after{content:"";position:absolute;top:-20%;left:-90%;width:50%;height:140%;transform:rotate(17deg);background:linear-gradient(90deg,transparent,#fff1 35%,#fff8 50%,#fff1 65%,transparent);filter:blur(12px);animation:oc-cross calc(var(--oc-time)*1.6) ease-in-out infinite}
+.oc-decorated[data-foil]>.oc-sweep{opacity:0}
+/* Foil is independent of the luminous pass. All four foil presets sweep. */
+.oc-decorated:is([data-foil=diamond],[data-foil=rainbow],[data-foil=silver],[data-foil=sheen])>.oc-sweep{
+ opacity:1;mix-blend-mode:screen;overflow:hidden
+}
+.oc-decorated:is([data-foil=diamond],[data-foil=rainbow],[data-foil=silver],[data-foil=sheen])>.oc-sweep::after{
+ content:"";position:absolute;left:0;top:-30%;width:100%;height:160%;
+ background:linear-gradient(90deg,transparent 0%,#ffffff06 14%,#ffffff4d 31%,#ffffffdb 48%,#fffffffa 52%,#ffffff65 70%,transparent 90%);
+ filter:blur(7px);opacity:calc(var(--oc-sweep-power, .9)*1.1);
+ transform:translateX(-170%) rotate(15deg);
+ animation:oc-sheen-pass var(--oc-time) linear infinite;will-change:transform;
+}
 .oc-decorated[data-foil=diamond]>.oc-effect{background:repeating-linear-gradient(45deg,transparent 0 17px,#e5f3ff64 19px,transparent 21px 40px),repeating-linear-gradient(-45deg,transparent 0 17px,#ffdbfc62 19px,transparent 21px 40px),linear-gradient(108deg,transparent 9%,#fff2e885 43%,#a4eaff50 57%,transparent 84%);background-size:88px 88px,88px 88px,220% 100%;animation:oc-weave var(--oc-time) ease-in-out infinite alternate}
 .oc-decorated[data-foil=diamond]>.oc-spark{background:radial-gradient(circle,#fff 1px,transparent 2.5px) 9px 20px/61px 73px,radial-gradient(circle,#ffe9ff 1px,transparent 3px) 28px 12px/103px 113px;animation:oc-twinkle var(--oc-time) ease-in-out infinite alternate}
 .oc-decorated[data-foil=rainbow]>.oc-effect{background:linear-gradient(112deg,transparent 5%,#ff65ce8c 22%,#ffeb8b8c 35%,#69f7e6a6 48%,#6f91ff91 61%,#da86ff90 76%,transparent 94%);background-size:230% 100%;animation:oc-slide var(--oc-time) ease-in-out infinite alternate}
 .oc-decorated[data-foil=rainbow]>.oc-spark{background:repeating-linear-gradient(158deg,transparent 0 18px,#fff4 19px,transparent 20px 42px);animation:oc-weave calc(var(--oc-time)*1.2) ease-in-out infinite alternate;opacity:calc(var(--oc-power)*.38)}
 .oc-decorated[data-foil=silver]>.oc-effect{background:repeating-linear-gradient(102deg,transparent 0 5px,#eef4ff45 6px,transparent 7px 15px),linear-gradient(105deg,transparent 5%,#f5f8ff3a 28%,#fff9 46%,#b7c1e46d 59%,transparent 86%);background-size:110% 100%,250% 100%;animation:oc-scan var(--oc-time) ease-in-out infinite alternate}
 .oc-decorated[data-foil=silver]>.oc-spark{background:repeating-linear-gradient(90deg,transparent 0 25px,#fff5 26px,transparent 27px 44px);opacity:calc(var(--oc-power)*.2);animation:oc-weave var(--oc-time) ease-in-out infinite alternate}
+/* Continuous mirror-like sweep: visible without hover or dragging. */
+.oc-decorated[data-foil=sheen]>.oc-effect{
+  opacity:calc(var(--oc-power)*.45);
+  background:linear-gradient(115deg,transparent 8%,#d5ecff32 40%,#fff5 51%,transparent 85%);
+  background-size:200% 100%;animation:oc-slide var(--oc-time) linear infinite;
+}
+.oc-decorated[data-foil=sheen]>.oc-spark{opacity:0;animation:none}
+@keyframes oc-sheen-pass{0%{transform:translateX(-170%) rotate(15deg)}75%,100%{transform:translateX(170%) rotate(15deg)}}
 @keyframes oc-cross{0%,14%{left:-90%}48%,100%{left:140%}}
 @keyframes oc-weave{from{background-position:0 0,0 0,0% 50%;filter:brightness(.7)}to{background-position:16px 22px,-15px 8px,100% 50%;filter:brightness(1.45)}}
 @keyframes oc-twinkle{from{opacity:calc(var(--oc-power)*.25);filter:brightness(.7)}to{opacity:var(--oc-power);filter:brightness(1.7)}}
@@ -23,6 +41,9 @@
 @keyframes oc-scan{from{background-position:0 0,0% 50%}to{background-position:17px 0,100% 50%;filter:brightness(1.4)}}
 .oc-rank-letter{position:absolute;top:4px;left:4px;z-index:6;max-width:75%;pointer-events:none;font:700 13px/1.1 "Cambria Math","STIX Two Math","Times New Roman",serif;color:#fff4c5;letter-spacing:-.03em;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 7px #c59a48;overflow-wrap:anywhere}
 .oc-art>.oc-rank-letter{top:6px;left:6px;font-size:23px}
+/* Only full-sized Get artwork; never change Index/Collection typography. */
+.oc-get .oc-flip-face.oc-art.oc-decorated>.oc-rank-letter{font-size:38px}
+.oc-get .oc-flip-face.oc-art.oc-decorated>.oc-stars{left:50%;right:10px;font-size:13px}
 .oc-decorated>.oc-stars{left:35%;right:3px;justify-content:flex-end}
 .oc-decorated[data-foil=none]>.oc-effect{mix-blend-mode:normal;opacity:1}
 .oc-decorated[data-foil=none]>.oc-spark,.oc-decorated[data-foil=none]>.oc-sweep{opacity:0}
