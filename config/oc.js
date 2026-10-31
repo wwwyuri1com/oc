@@ -28,10 +28,67 @@
    const columnsKey='y1-oc-gallery-columns';
    let selectedSize='s';
    try{const saved=localStorage.getItem(columnsKey);if(['s','m','l'].includes(saved))selectedSize=saved}catch(_e){}
+  // HTML always starts with the small image. Full-size URLs in data attributes
+  // are inert until the visitor chooses four or three columns and scrolls near a card.
+  const richCards=original.map(card=>({card,media:card.querySelector('.oc-card-media[data-oc-aim-url]')})).filter(row=>row.media);
+  const loaded=new WeakSet(),pending=new WeakSet(),failed=new WeakSet();
+  const showImage=(media,high)=>{media.style.backgroundImage='url('+JSON.stringify(media.dataset[high?'ocAimUrl':'ocAixsUrl'])+')'};
+  const fetchAim=row=>{
+    const media=row.media;
+    if(loaded.has(media)){if(area.dataset.ocColumns!=='s')showImage(media,true);return}
+    if(pending.has(media)||failed.has(media))return;
+    pending.add(media);
+    const probe=new Image();
+    probe.onload=()=>{
+      const ready=()=>{
+        pending.delete(media);loaded.add(media);
+        // Never let a late download overwrite the forced-AIXS five-column mode.
+        if(area.dataset.ocColumns!=='s')showImage(media,true);
+      };
+      if(typeof probe.decode==='function')probe.decode().then(ready,ready);
+      else ready();
+    };
+    probe.onerror=()=>{pending.delete(media);failed.add(media)};
+    probe.src=media.dataset.ocAimUrl;
+  };
+  const observer=typeof IntersectionObserver==='function'?new IntersectionObserver(entries=>{
+    if(area.dataset.ocColumns==='s')return;
+    for(const entry of entries){
+      if(!entry.isIntersecting)continue;
+      observer.unobserve(entry.target);
+      const row=richCards.find(v=>v.card===entry.target);
+      if(row)fetchAim(row);
+    }
+  },{rootMargin:'100px 0px'}):null;
+  // Compatibility fallback: still restrict requests to cards near the viewport.
+  const loadVisible=()=>{
+    if(observer||area.dataset.ocColumns==='s')return;
+    for(const row of richCards){
+      if(row.card.hidden)continue;
+      const r=row.card.getBoundingClientRect();
+      if(r.bottom>=-100&&r.top<=window.innerHeight+100&&r.right>=0&&r.left<=window.innerWidth)fetchAim(row);
+    }
+  };
+  if(!observer&&richCards.length){
+    window.addEventListener('scroll',loadVisible,{passive:true,capture:true});
+    window.addEventListener('resize',loadVisible);
+  }
    const setColumns=(size,persist)=>{
      if(!['s','m','l'].includes(size))return;
      area.dataset.ocColumns=size;
      area.querySelectorAll('[data-oc-size]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.ocSize===size)));
+    if(size==='s'){
+      for(const row of richCards){
+        if(observer)observer.unobserve(row.card);
+        showImage(row.media,false);
+      }
+    }else{
+      for(const row of richCards){
+        if(loaded.has(row.media))showImage(row.media,true);
+        else if(observer&&!failed.has(row.media))observer.observe(row.card);
+      }
+      loadVisible();
+    }
      if(persist){try{localStorage.setItem(columnsKey,size)}catch(_e){}}
    };
    setColumns(selectedSize,false);
