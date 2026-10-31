@@ -3,7 +3,7 @@
 .oc-decorated[data-effect="rainbow"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-rainbow;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-rainbow{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
 .oc-decorated[data-effect="rainbow"] .oc-effect{}
-.oc-decorated[data-effect="diamond"]{--oc-power:0.800;--oc-time:14.00s}
+.oc-decorated[data-effect="diamond"]{--oc-power:0.450;--oc-time:13.00s}
 .oc-decorated[data-effect="diamond"]{--oc-sweep-power:0.900}
 .oc-decorated[data-effect="diamond"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-diamond;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-diamond{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
@@ -20,6 +20,11 @@
 .oc-decorated[data-effect="default"] .oc-effect{background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
 mix-blend-mode: screen;
 opacity: .6;}
+.oc-decorated[data-effect="default-ocbanner"]{--oc-power:0.900;--oc-time:4.80s}
+.oc-decorated[data-effect="default-ocbanner"]{--oc-sweep-power:0.350}
+.oc-decorated[data-effect="default-ocbanner"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-default-ocbanner;animation-duration:7.2000s;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes oc-sheen-pass-default-ocbanner{0%{transform:translateX(-170%) rotate(15deg)}16.666667%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
+.oc-decorated[data-effect="default-ocbanner"] .oc-effect{}
 .oc-decorated[data-frame="diamond"] .oc-frame{border: 2px solid #d9f5ff;}
 .oc-decorated[data-frame="diamond"] .oc-stars{color: #d9f5ff; text-shadow: 0 0 3px #d9f5ff;}
 .oc-decorated[data-frame="diamond"] .oc-rank-letter{color: #d9f5ff; text-shadow: 0 1px 2px #000, 0 0 4px #d9f5ff;}
