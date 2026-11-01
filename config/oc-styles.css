@@ -2,29 +2,47 @@
 .oc-decorated[data-effect="rainbow"]{--oc-sweep-power:0.900}
 .oc-decorated[data-effect="rainbow"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-rainbow;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-rainbow{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
-.oc-decorated[data-effect="rainbow"] .oc-effect{}
-.oc-decorated[data-effect="diamond"]{--oc-power:0.450;--oc-time:13.00s}
+.oc-decorated[data-effect="rainbow"] .oc-effect{background: linear-gradient(112deg, transparent 5%, #ff65ce8c 22%, #ffeb8b8c 35%, #69f7e6a6 48%, #6f91ff91 61%, #da86ff90 76%, transparent 94%);
+background-size: 230% 100%;}
+.oc-decorated[data-effect="rainbow"][data-foil]:not([data-foil=none])>.oc-sweep::after{background: linear-gradient(90deg, transparent 0%, #ffffff06 14%, #ffffff4d 31%, #ffffffdb 48%, #fffffffa 52%, #ffffff65 70%, transparent 90%);
+filter: blur(7px);
+opacity: calc(var(--oc-sweep-power, .9) * 1.1);}
+.oc-decorated[data-effect="diamond"]{--oc-power:0.200;--oc-time:5.00s}
 .oc-decorated[data-effect="diamond"]{--oc-sweep-power:0.900}
 .oc-decorated[data-effect="diamond"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-diamond;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-diamond{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
-.oc-decorated[data-effect="diamond"] .oc-effect{}
-.oc-decorated[data-effect="lattice"]{--oc-power:0.300;--oc-time:14.00s}
+.oc-decorated[data-effect="diamond"] .oc-effect{background: repeating-linear-gradient(45deg, transparent 0 17px, #e5f3ff64 19px, transparent 21px 40px), repeating-linear-gradient(-45deg, transparent 0 17px, #ffdbfc62 19px, transparent 21px 40px), linear-gradient(108deg, transparent 9%, #fff2e885 43%, #a4eaff50 57%, transparent 84%);
+background-size: 88px 88px, 28px 28px, 220% 100%;}
+.oc-decorated[data-effect="diamond"][data-foil]:not([data-foil=none])>.oc-sweep::after{background: linear-gradient(90deg, transparent 0%, #ffffff06 14%, #ffffff4d 31%, #ffffffdb 48%, #fffffffa 52%, #ffffff65 70%, transparent 90%);
+filter: blur(7px);
+opacity: calc(var(--oc-sweep-power, .9) * 1.1);}
+.oc-decorated[data-effect="lattice"]{--oc-power:0.450;--oc-time:14.00s}
 .oc-decorated[data-effect="lattice"]{--oc-sweep-power:0.900}
 .oc-decorated[data-effect="lattice"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-lattice;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-lattice{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
-.oc-decorated[data-effect="lattice"] .oc-effect{}
+.oc-decorated[data-effect="lattice"] .oc-effect{background: repeating-linear-gradient(102deg, transparent 0 5px, #eef4ff45 6px, transparent 7px 15px), linear-gradient(105deg, transparent 5%, #f5f8ff3a 28%, #fff9 46%, #b7c1e46d 59%, transparent 86%);
+background-size: 110% 100%, 250% 100%;}
+.oc-decorated[data-effect="lattice"][data-foil]:not([data-foil=none])>.oc-sweep::after{background: linear-gradient(90deg, transparent 0%, #ffffff06 14%, #ffffff4d 31%, #ffffffdb 48%, #fffffffa 52%, #ffffff65 70%, transparent 90%);
+filter: blur(7px);
+opacity: calc(var(--oc-sweep-power, .9) * 1.1);}
 .oc-decorated[data-effect="default"]{--oc-power:0.300;--oc-time:5.00s}
 .oc-decorated[data-effect="default"]{--oc-sweep-power:0.300}
 .oc-decorated[data-effect="default"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-default;animation-duration:5.8000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-default{0%{transform:translateX(-170%) rotate(15deg)}13.793103%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
-.oc-decorated[data-effect="default"] .oc-effect{background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
-mix-blend-mode: screen;
-opacity: .6;}
-.oc-decorated[data-effect="default-ocbanner"]{--oc-power:0.900;--oc-time:4.80s}
-.oc-decorated[data-effect="default-ocbanner"]{--oc-sweep-power:0.350}
-.oc-decorated[data-effect="default-ocbanner"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-default-ocbanner;animation-duration:7.2000s;animation-timing-function:linear;animation-iteration-count:infinite}
-@keyframes oc-sheen-pass-default-ocbanner{0%{transform:translateX(-170%) rotate(15deg)}16.666667%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
-.oc-decorated[data-effect="default-ocbanner"] .oc-effect{}
+.oc-decorated[data-effect="default"] .oc-effect{background: linear-gradient(115deg, transparent 8%, #d5ecff32 40%, #fff5 51%, transparent 85%);
+background-size: 200% 100%;}
+.oc-decorated[data-effect="default"][data-foil]:not([data-foil=none])>.oc-sweep::after{background: linear-gradient(90deg, transparent 0%, #ffffff06 14%, #ffffff4d 31%, #ffffffdb 48%, #fffffffa 52%, #ffffff65 70%, transparent 90%);
+filter: blur(7px);
+opacity: calc(var(--oc-sweep-power, .9) * 1.1);}
+.oc-decorated[data-effect="default-ocbanner"]{--oc-power:0.300;--oc-time:4.80s}
+.oc-decorated[data-effect="default-ocbanner"]{--oc-sweep-power:0.250}
+.oc-decorated[data-effect="default-ocbanner"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-default-ocbanner;animation-duration:11.5000s;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes oc-sheen-pass-default-ocbanner{0%{transform:translateX(-170%) rotate(15deg)}13.043478%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
+.oc-decorated[data-effect="default-ocbanner"] .oc-effect{background: linear-gradient(115deg, transparent 8%, #d5ecff32 40%, #fff5 51%, transparent 85%);
+background-size: 200% 100%;}
+.oc-decorated[data-effect="default-ocbanner"][data-foil]:not([data-foil=none])>.oc-sweep::after{background: linear-gradient(90deg, transparent 0%, #ffffff06 14%, #ffffff4d 31%, #ffffffdb 48%, #fffffffa 52%, #ffffff65 70%, transparent 90%);
+filter: blur(7px);
+opacity: calc(var(--oc-sweep-power, .9) * 1.1);}
 .oc-decorated[data-frame="diamond"] .oc-frame{border: 2px solid #d9f5ff;}
 .oc-decorated[data-frame="diamond"] .oc-stars{color: #d9f5ff; text-shadow: 0 0 3px #d9f5ff;}
 .oc-decorated[data-frame="diamond"] .oc-rank-letter{color: #d9f5ff; text-shadow: 0 1px 2px #000, 0 0 4px #d9f5ff;}

@@ -166,13 +166,20 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--oc-accent);outline-
 /* Music Tracks-inspired translucent collection panel. */
 #oc-collection-dialog{position:fixed;inset:0;max-width:none;max-height:none;width:100%;height:100%;padding:0;margin:0;border:0;background:transparent;color:var(--oc-ink);overflow:hidden}
 #oc-collection-dialog::backdrop{background:rgba(4,3,9,.66);backdrop-filter:blur(10px) saturate(.75);-webkit-backdrop-filter:blur(10px) saturate(.75)}
-.oc-collection-panel{position:relative;display:flex;flex-direction:column;width:min(360px,100%);height:min(690px,calc(100dvh - 44px));margin:max(22px,calc((100dvh - min(690px,100dvh - 44px))/2)) auto 0;border-radius:26px;overflow:hidden;background:var(--oc-stage);border:1px solid rgba(255,255,255,.18);box-shadow:0 26px 85px #000a,inset 0 1px rgba(255,255,255,.08);backdrop-filter:var(--oc-glass-blur);-webkit-backdrop-filter:var(--oc-glass-blur)}
+.oc-collection-panel{position:relative;display:flex;flex-direction:column;width:min(380px,100%);height:min(690px,calc(100dvh - 44px));margin:max(22px,calc((100dvh - min(690px,100dvh - 44px))/2)) auto 0;border-radius:26px;overflow:hidden;background:var(--oc-stage);border:1px solid rgba(255,255,255,.18);box-shadow:0 26px 85px #000a,inset 0 1px rgba(255,255,255,.08);backdrop-filter:var(--oc-glass-blur);-webkit-backdrop-filter:var(--oc-glass-blur)}
 .oc-heading{display:flex;flex:none;justify-content:space-between;align-items:center;gap:15px;padding:23px 20px 19px;border-bottom:1px solid rgba(255,255,255,.09)}
 .oc-heading h2{font-size:24px;font-weight:550;letter-spacing:-.035em;margin:3px 0 0}
 .oc-heading .oc-kicker{font-size:8px;color:#c5abc0}
 #oc-close-collection{display:grid;place-items:center;flex:none;width:41px;height:41px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(9,9,15,.58);box-shadow:inset 0 1px rgba(255,255,255,.1);color:#fff;padding:0;transition:transform .2s,background .2s}
 #oc-close-collection:hover{background:rgba(250,102,153,.2);transform:rotate(90deg)}
-.oc-collection-scroll{flex:1;min-height:0;background:var(--oc-stage);overflow:auto;padding-block:18px 20px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ba7b9b transparent}
+.oc-collection-scroll{flex:1;min-height:0;background:var(--oc-stage);overflow-x:hidden;overflow-y:scroll;scrollbar-gutter:stable;padding-block:18px 20px;padding-right:10px;overscroll-behavior:contain;scrollbar-width:none}
+.oc-collection-scroll::-webkit-scrollbar{display:none;width:0;height:0}
+/* COLL only: extend the active underline under the permanent right-edge rail. */
+.oc-collection-scroll .oc-tabs button::after{right:-6px}
+/* COLL uses one permanent, draggable rail; the native scrollbar is visually
+   hidden only inside this dialog while its scroll container remains intact. */
+.oc-collection-scrollbar{position:absolute;right:0;width:5px;z-index:5;background:#242424;overflow:hidden;touch-action:none;cursor:default}
+.oc-collection-scrollbar-thumb{position:absolute;top:0;left:0;width:100%;background:#fa6699;will-change:transform}
 /* Header/footer are stable across Index and Get, not part of dialog. */
 .oc-footer{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:auto;padding:23px 20px 24px;color:#938995;border-top:1px solid rgba(255,255,255,.085);font-size:10px;letter-spacing:.02em}
 .oc-footer a:first-child{min-width:0;overflow-wrap:anywhere}

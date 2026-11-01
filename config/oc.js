@@ -113,7 +113,78 @@
  filter([...document.querySelectorAll('[data-meta]')].some(b=>b.dataset.meta===initial)?initial:'');
  document.querySelectorAll('[data-meta]').forEach(b=>b.addEventListener('click',()=>{filter(b.dataset.meta);if(!document.getElementById('oc-collection-dialog')){const url=new URL(location.href);if(b.dataset.meta)url.searchParams.set('oc',b.dataset.meta);else url.searchParams.delete('oc');history.replaceState(null,'',url)}}));
  const dialog=document.getElementById('oc-collection-dialog');
- if(dialog){const open=document.getElementById('oc-open-collection');open.addEventListener('click',()=>dialog.showModal());document.getElementById('oc-close-collection').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>open.focus())}
+ if(dialog){
+   const open=document.getElementById('oc-open-collection');
+   const scroll=dialog.querySelector('.oc-collection-scroll');
+   const panel=dialog.querySelector('.oc-collection-panel');
+   let updateRail=()=>{};
+   if(scroll&&panel){
+     const rail=document.createElement('div');
+     const thumb=document.createElement('div');
+     rail.className='oc-collection-scrollbar';
+     thumb.className='oc-collection-scrollbar-thumb';
+     rail.setAttribute('aria-hidden','true');
+     rail.appendChild(thumb);
+     panel.appendChild(rail);
+     const measure=()=>{
+       const height=scroll.clientHeight;
+       const total=Math.max(height,scroll.scrollHeight);
+       const range=total-height;
+       const thumbHeight=range>0?Math.min(height,Math.max(32,height*height/total)):height;
+       return {height,range,thumbHeight,travel:height-thumbHeight};
+     };
+     updateRail=()=>{
+       if(!dialog.open)return;
+       const {height,range,thumbHeight,travel}=measure();
+       const offset=range>0?Math.max(0,Math.min(range,scroll.scrollTop))/range*travel:0;
+       rail.style.top=scroll.offsetTop+'px';
+       rail.style.height=height+'px';
+       thumb.style.height=thumbHeight+'px';
+       thumb.style.transform='translateY('+offset+'px)';
+     };
+     const scrollToPointer=(clientY,grabOffset)=>{
+       const {range,travel}=measure();
+       if(range<=0||travel<=0)return;
+       const position=clientY-rail.getBoundingClientRect().top-grabOffset;
+       scroll.scrollTop=Math.max(0,Math.min(range,position/travel*range));
+       updateRail();
+     };
+     let drag=null;
+     rail.addEventListener('pointerdown',event=>{
+       if(event.pointerType==='mouse'&&event.button!==0)return;
+       const {range,thumbHeight,travel}=measure();
+       if(range<=0||travel<=0)return;
+       const position=event.clientY-rail.getBoundingClientRect().top;
+       const thumbTop=Math.max(0,Math.min(travel,scroll.scrollTop/range*travel));
+       const onThumb=position>=thumbTop&&position<=thumbTop+thumbHeight;
+       const grabOffset=onThumb?position-thumbTop:thumbHeight/2;
+       drag={id:event.pointerId,grabOffset};
+       rail.setPointerCapture(event.pointerId);
+       event.preventDefault();
+       if(!onThumb)scrollToPointer(event.clientY,grabOffset);
+     });
+     rail.addEventListener('pointermove',event=>{
+       if(!drag||event.pointerId!==drag.id)return;
+       event.preventDefault();
+       scrollToPointer(event.clientY,drag.grabOffset);
+     });
+     for(const type of ['pointerup','pointercancel','lostpointercapture']){
+       rail.addEventListener(type,event=>{if(drag&&event.pointerId===drag.id)drag=null});
+     }
+     scroll.addEventListener('scroll',updateRail,{passive:true});
+     window.addEventListener('resize',updateRail);
+     if(typeof ResizeObserver==='function'){
+       const observer=new ResizeObserver(updateRail);
+       rail._ocResizeObserver=observer;
+       observer.observe(scroll);
+       const collection=scroll.querySelector('.oc-collection');
+       if(collection)observer.observe(collection);
+     }
+   }
+   open.addEventListener('click',()=>{dialog.showModal();updateRail()});
+   document.getElementById('oc-close-collection').addEventListener('click',()=>dialog.close());
+   dialog.addEventListener('close',()=>open.focus());
+ }
 })();
 (()=>{
  document.querySelectorAll('.oc-card').forEach(card=>{
