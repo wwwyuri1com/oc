@@ -1,4 +1,4 @@
-.oc-decorated[data-effect="rainbow"]{--oc-power:0.500;--oc-time:14.00s}
+.oc-decorated[data-effect="rainbow"]{--oc-power:0.350;--oc-time:7.00s}
 .oc-decorated[data-effect="rainbow"]{--oc-sweep-power:0.900}
 .oc-decorated[data-effect="rainbow"][data-foil]>.oc-sweep::after{animation-name:oc-sheen-pass-rainbow;animation-duration:5.6000s;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes oc-sheen-pass-rainbow{0%{transform:translateX(-170%) rotate(15deg)}14.285714%{transform:translateX(170%) rotate(15deg)}100%{transform:translateX(170%) rotate(15deg)}}
